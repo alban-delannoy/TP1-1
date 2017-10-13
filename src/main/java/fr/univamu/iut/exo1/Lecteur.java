@@ -5,11 +5,23 @@ import fr.univamu.iut.Conteneur;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 
 public class Lecteur {
     public static Collection<Conteneur> charger(String fichier) {
-        Collection<Conteneur> lesConteneursALire = new ArrayList<Conteneur>(); //liste de conteneurs
+        Collection<Conteneur> lesConteneursALire = new TreeSet<Conteneur>(new Comparator<Conteneur>() { //tri dans la liste les conteneur de la distance la plus petite a la plus grande
+            @Override
+            public int compare(Conteneur conteneur, Conteneur conteneur2) {
+                return  conteneur.getDistance().compareTo(conteneur2.getDistance()); //renvoie 1 si (c1 > c2)
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                return false;
+            }
+        }); //liste de conteneurs
         try (FileInputStream fileInputStream = new FileInputStream(fichier); //recupere le fichier
              ObjectInputStream ois = new ObjectInputStream(fileInputStream)) { //convertit le fichier en objet conteneur
             try {
@@ -32,3 +44,4 @@ public class Lecteur {
         return lesConteneursALire; //return car fonction non void
     }
 }
+
