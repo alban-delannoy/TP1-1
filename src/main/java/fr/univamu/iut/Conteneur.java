@@ -29,4 +29,8 @@ public class Conteneur implements Serializable {
     public Integer getDistance() {
         return GestionDistance.getDistance(destination); //return la distance de la ville "destination"
     }
+
+    public Integer getPoids() {
+        return  poids;
+    }
 }
